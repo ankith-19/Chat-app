@@ -9,7 +9,7 @@ import connectDB from './db/connectToMongoDB.js';
 import { app, server } from './socket/socket.js';
 
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const __dirname = path.resolve();
 
