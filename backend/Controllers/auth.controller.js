@@ -56,7 +56,12 @@ export const login = async (req,res) => {
     try {
         const {username, password} = req.body;
         const user = await User.findOne({username});
-        const isPasswordCorrect = await bcrypt.compare(password,user.password || "");
+
+        if(!user) {
+            return res.status(400).json({error:"Invalid username or password"});
+        }
+        
+        const isPasswordCorrect = await bcrypt.compare(password,user.password);
 
         if(!user || !isPasswordCorrect) {
             return res.status(400).json({error:"Invalid username or password"});
@@ -71,7 +76,7 @@ export const login = async (req,res) => {
             profilePic:user.profilePic
         });
     } catch (error) {
-        console.log("Eroor in login controller",error.message);
+        console.log("Eroor in login controller",error);
         res.status(500).json({error:"Internal Server Error"});
     }
 }

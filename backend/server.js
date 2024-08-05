@@ -5,8 +5,9 @@ import authRoutes from './routes/auth.routes.js';
 import messageRoutes from './routes/message.routes.js';
 import userRoutes from './routes/user.routes.js';
 import connectDB from './db/connectToMongoDB.js';
+import { app, server } from './socket/socket.js';
 
-const app = express();
+
 const PORT = 3000;
 
 dotenv.config();
@@ -26,7 +27,7 @@ app.get("/",(req,res)=> {
     res.send("Hello world chat app");
 })
 
-app.listen(PORT,()=> {
+server.listen(PORT,()=> {
     console.log(`app is listening to port ${PORT}`);
 })
 
